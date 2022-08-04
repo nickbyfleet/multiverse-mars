@@ -55,3 +55,29 @@ describe("When facing west", () => {
     expect(r.direction).toEqual("S");
   })
 });
+
+describe("When moving forward", () => {
+  it("the rover is facing north and the y component increments", () => {
+    const r = new Rover(0, 0, "N");
+    r.moveForward();
+    expect(r.position.y).toEqual(1);
+  });
+
+  it("the rover is facing east and the x component increments", () => {
+    const r = new Rover(0, 0, "E");
+    r.moveForward();
+    expect(r.position.x).toEqual(1);
+  });
+
+  it("the rover is facing south and the y component decrements", () => {
+    const r = new Rover(0, 0, "S");
+    r.moveForward();
+    expect(r.position.y).toEqual(-1);
+  });
+
+  it("the rover is facing west and the x component decrements", () => {
+    const r = new Rover(0, 0, "W");
+    r.moveForward();
+    expect(r.position.x).toEqual(-1);
+  })
+});

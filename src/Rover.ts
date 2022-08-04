@@ -48,4 +48,32 @@ export default class Rover
         break;
     }
   }
+
+  moveForward() {
+    switch (this.direction) {
+      case "N":
+        this.position = {
+          ...this.position,
+          y: this.position.y + 1
+        };
+        break;
+      case "E":
+        this.position = {
+          ...this.position,
+          x: this.position.x + 1
+        };
+        break;
+      case "S":
+        this.position = {
+          ...this.position,
+          y: this.position.y - 1
+        }
+        break;
+      case "W":
+        this.position = {
+          ...this.position,
+          x: this.position.x - 1
+        }
+    }
+  }
 }
