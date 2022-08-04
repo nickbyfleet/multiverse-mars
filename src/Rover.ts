@@ -1,5 +1,6 @@
 import Tuple from "./types/Tuple.js";
 import Direction from "./types/Direction.js";
+import Command from "./types/Command.js";
 
 export default class Rover
 {
@@ -74,6 +75,20 @@ export default class Rover
           ...this.position,
           x: this.position.x - 1
         }
+    }
+  }
+
+  doCommand(command: Command) {
+    switch(command) {
+      case "F":
+        this.moveForward();
+        break;
+      case "L":
+        this.turnLeft();
+        break;
+      case "R":
+        this.turnRight();
+        break;
     }
   }
 }

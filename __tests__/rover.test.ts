@@ -81,3 +81,26 @@ describe("When moving forward", () => {
     expect(r.position.x).toEqual(-1);
   })
 });
+
+describe("When doing a command", () => {
+  it("the rover gets sent F and moves forward", () => {
+    const r = new Rover(0, 0, "N");
+    const spy = jest.spyOn(r, 'moveForward');
+    r.doCommand("F");
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it("the rover gets sent L and turns left", () => {
+    const r = new Rover(0, 0, "N");
+    const spy = jest.spyOn(r, 'turnLeft');
+    r.doCommand("L");
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it("the rover gets sent R and turns right", () => {
+    const r = new Rover(0, 0, "N");
+    const spy = jest.spyOn(r, 'turnRight');
+    r.doCommand("R");
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+});
