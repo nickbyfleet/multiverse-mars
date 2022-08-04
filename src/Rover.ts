@@ -9,7 +9,7 @@ export default class Rover
   isLost: boolean;
   grid?: Tuple;
 
-  constructor(x: number, y: number, direction: Direction, grid?: Tuple) {
+  constructor(x: number, y: number, direction, grid?: Tuple) {
     this._position = {
       x: x,
       y: y,
@@ -34,7 +34,7 @@ export default class Rover
     return this._position;
   }
 
-  turnRight() {
+  turnRight(): void {
     switch(this.direction) {
       case "N":
         this.direction = "E";
@@ -51,7 +51,7 @@ export default class Rover
     }
   }
 
-  turnLeft() {
+  turnLeft(): void {
     switch(this.direction) {
       case "N":
         this.direction = "W";
@@ -68,7 +68,7 @@ export default class Rover
     }
   }
 
-  moveForward() {
+  moveForward(): void {
     switch (this.direction) {
       case "N":
         this.position = {
@@ -96,7 +96,11 @@ export default class Rover
     }
   }
 
-  doCommand(command: Command) {
+  doCommand(command: Command): void {
+    if (this.isLost) {
+      return;
+    }
+
     switch(command) {
       case "F":
         this.moveForward();
@@ -108,5 +112,23 @@ export default class Rover
         this.turnRight();
         break;
     }
+  }
+
+  doMultipleCommands(commandList: string): Rover {
+    commandList.split('').forEach((command: Command) => {
+      this.doCommand(command);
+    });
+
+    return this;
+  }
+
+  debug(): string {
+    let output = `(${this.position.x}, ${this.position.y}, ${this.direction})`;
+
+    if (this.isLost) {
+      output += ' LOST';
+    }
+
+    return output;
   }
 }
