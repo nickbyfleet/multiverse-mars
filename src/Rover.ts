@@ -4,16 +4,34 @@ import Command from "./types/Command.js";
 
 export default class Rover
 {
-  position: Tuple;
+  private _position: Tuple;
   direction: Direction;
+  isLost: boolean;
+  grid?: Tuple;
 
-
-  constructor(x: number, y: number, direction: Direction) {
-    this.position = {
+  constructor(x: number, y: number, direction: Direction, grid?: Tuple) {
+    this._position = {
       x: x,
       y: y,
     };
     this.direction = direction;
+    this.grid = grid;
+    this.isLost = false;
+  }
+
+  set position(value: Tuple) {
+    if(this.grid) {
+      if (value.x > this.grid.x || value.y > this.grid.y || value.x < 0 || value.y < 0) {
+        this.isLost = true;
+        return;
+      }
+    }
+
+    this._position = value;
+  }
+
+  get position(): Tuple {
+    return this._position;
   }
 
   turnRight() {
@@ -54,26 +72,26 @@ export default class Rover
     switch (this.direction) {
       case "N":
         this.position = {
-          ...this.position,
-          y: this.position.y + 1
+          ...this._position,
+          y: this._position.y + 1
         };
         break;
       case "E":
         this.position = {
-          ...this.position,
-          x: this.position.x + 1
+          ...this._position,
+          x: this._position.x + 1
         };
         break;
       case "S":
         this.position = {
-          ...this.position,
-          y: this.position.y - 1
+          ...this._position,
+          y: this._position.y - 1
         }
         break;
       case "W":
         this.position = {
-          ...this.position,
-          x: this.position.x - 1
+          ...this._position,
+          x: this._position.x - 1
         }
     }
   }
